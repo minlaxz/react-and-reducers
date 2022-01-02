@@ -1,25 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { GET_USER_REQUEST } from './redux/reducers/user';
+
+const SubComponent = () => {
+    const dispatch = useDispatch();
+    const userRequest = () => dispatch({ type: GET_USER_REQUEST });
+    const user = useSelector(state => state.userReducer);
+    return (
+        <div>
+            <p style={{
+                whiteSpace: 'pre-wrap',
+                width: '100vw',
+                height: '80%',
+            }}>
+                {
+                    (user ? JSON.stringify(user) : 'Loading...')
+                }
+            </p>
+            <button
+                onClick={() => userRequest()}
+            >Fetch Data</button>
+        </div>
+    );
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <h3>
+                This should not be re-rendered when the state is updated.
+            </h3>
+            <SubComponent />
+            
+        </div>
+    );
 }
 
 export default App;
