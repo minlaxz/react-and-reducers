@@ -1,18 +1,19 @@
-export const GET_USER_REQUEST = 'GET_USER_REQUEST';
-const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+import * as actions from '../actions/user';
 
+// to be dispatched from components
 export const getUserRequest = () => ({
-    type: GET_USER_REQUEST,
+    type: actions.GET_USER_REQUEST,
 });
 
+// to be dispatched from worker saga
 export const getUserSuccess = (user) => ({
-    type: GET_USER_SUCCESS,
+    type: actions.GET_USER_SUCCESS,
     payload: user,
 });
 
 export default function reducer(state = {}, action) {
     switch (action.type) {
-        case GET_USER_SUCCESS:
+        case actions.GET_USER_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
